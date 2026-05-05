@@ -272,7 +272,10 @@
       document.getElementById('intro').style.display = 'flex';
     }
 
+    let isHolding = false;
+
     function startHold() {
+      isHolding = true;
       clearInterval(holdInterval);
       clearInterval(releaseInterval);
       holdInterval = null;
@@ -286,7 +289,8 @@
     }
 
     function stopHold() {
-      if (!holdInterval) return;
+      if (!isHolding) return;
+      isHolding = false;
       document.getElementById('hold-btn').style.animation = 'breathe 1.2s ease-in-out infinite';
       clearInterval(holdInterval);
       clearInterval(releaseInterval);
@@ -303,6 +307,11 @@
       }, 40);
     }
 
+    document.getElementById('hold-btn').addEventListener('mousedown', startHold);
+    document.addEventListener('mouseup', stopHold);
+    document.getElementById('hold-btn').addEventListener('touchstart', startHold);
+    document.getElementById('hold-btn').addEventListener('touchend', stopHold);
+
     function updatePressureUI() {
       const filled = Math.round(pressure / 10);
       const bar = '█'.repeat(filled) + '░'.repeat(10 - filled);
@@ -315,12 +324,6 @@
         lv.style.display = 'none';
       }
     }
-
-    document.getElementById('hold-btn').addEventListener('mousedown', startHold);
-    document.getElementById('hold-btn').addEventListener('mouseup', stopHold);
-    document.getElementById('hold-btn').addEventListener('mouseleave', stopHold);
-    document.getElementById('hold-btn').addEventListener('touchstart', startHold);
-    document.getElementById('hold-btn').addEventListener('touchend', stopHold);
 
     function enterState(index) {
       document.getElementById('grid-title').style.display = 'none';
