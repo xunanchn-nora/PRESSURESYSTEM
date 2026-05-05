@@ -316,8 +316,7 @@
     }
 
     document.getElementById('hold-btn').addEventListener('mousedown', startHold);
-    document.getElementById('hold-btn').addEventListener('mouseup', stopHold);
-    document.getElementById('hold-btn').addEventListener('mouseleave', stopHold);
+    document.addEventListener('mouseup', stopHold);
     document.getElementById('hold-btn').addEventListener('touchstart', startHold);
     document.getElementById('hold-btn').addEventListener('touchend', stopHold);
 
