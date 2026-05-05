@@ -272,10 +272,7 @@
       document.getElementById('intro').style.display = 'flex';
     }
 
-    let isHolding = false;
-
     function startHold() {
-      isHolding = true;
       clearInterval(holdInterval);
       clearInterval(releaseInterval);
       holdInterval = null;
@@ -289,8 +286,6 @@
     }
 
     function stopHold() {
-      if (!isHolding) return;
-      isHolding = false;
       document.getElementById('hold-btn').style.animation = 'breathe 1.2s ease-in-out infinite';
       clearInterval(holdInterval);
       clearInterval(releaseInterval);
@@ -307,10 +302,13 @@
       }, 40);
     }
 
-    document.getElementById('hold-btn').addEventListener('mousedown', startHold);
-    document.addEventListener('mouseup', stopHold);
-    document.getElementById('hold-btn').addEventListener('touchstart', startHold);
-    document.getElementById('hold-btn').addEventListener('touchend', stopHold);
+    const holdBtnEl = document.getElementById('hold-btn');
+    holdBtnEl.addEventListener('mousedown', (e) => {
+      startHold();
+      window.addEventListener('mouseup', stopHold, { once: true });
+    });
+    holdBtnEl.addEventListener('touchstart', startHold);
+    holdBtnEl.addEventListener('touchend', stopHold);
 
     function updatePressureUI() {
       const filled = Math.round(pressure / 10);
