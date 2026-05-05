@@ -288,7 +288,7 @@
     function stopHold() {
       document.getElementById('hold-btn').style.animation = 'breathe 1.2s ease-in-out infinite';
       clearInterval(holdInterval);
-      clearInterval(releaseInterval);
+      
       holdInterval = null;
       releaseInterval = null;
       document.getElementById('hold-btn').style.color = '#777';
@@ -316,7 +316,8 @@
     }
 
     document.getElementById('hold-btn').addEventListener('mousedown', startHold);
-    document.addEventListener('mouseup', stopHold);
+    document.getElementById('hold-btn').addEventListener('mouseup', stopHold);
+    document.getElementById('hold-btn').addEventListener('mouseleave', stopHold);
     document.getElementById('hold-btn').addEventListener('touchstart', startHold);
     document.getElementById('hold-btn').addEventListener('touchend', stopHold);
 
