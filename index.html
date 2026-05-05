@@ -323,7 +323,7 @@
 
     document.getElementById('hold-btn').addEventListener('mousedown', startHold);
     document.getElementById('hold-btn').addEventListener('mouseup', stopHold);
-    document.getElementById('hold-btn').addEventListener('mouseleave', function() {
+    document.addEventListener('mouseup', function() {
       if (isHolding) stopHold();
     });
     document.getElementById('hold-btn').addEventListener('touchstart', startHold);
